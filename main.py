@@ -29,6 +29,7 @@ def off():
 	global current
 	sp.Popen.terminate(current)
 	pixels.fill((0, 0, 0))
+
 	print("lights off.")
 	return "lights off.", 200
 
@@ -45,9 +46,9 @@ def solid():
 	print("colors set")
 	return "colors set.", 200
 
-@app.route('/tellServerGyro')
+@app.route('/gyro')
 def gyro():
-	start(['python3', 'main_udp.py'])
+	start(['python3', 'gyro_udp.py'])
 
 	print("started gyro")
 	return "started gyro.", 200
@@ -59,6 +60,11 @@ def rainbow():
 	print("started rainbow")
 	return "started rainbow.", 200
 
+@app.route('/fade')
+def fade():
+
+	print("started fade")
+	return "started fade.", 200
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')
