@@ -9,9 +9,15 @@ bright = 100
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-s.bind(('0.0.0.0', 50000)) # TODO this might not work. '0.0.0.0' was originally the ip of the computer running the server
+s.bind(('0.0.0.0', 50000)) # this might not work. '0.0.0.0' was originally the ip of the computer running the server
 
-pixels.fill((0, 0, 0))
+pixels.fill((0, 0, 1))
+
+
+def closeSocket():
+	s.close()
+import atexit
+atexit.register(closeSocket)
 
 try:
 	while True:
@@ -29,8 +35,9 @@ try:
 
 		#print("data received: ", data)
 		#s.sendto(data, addr)
+		print("vals: " + str(c_vals))
 
 		pixels.fill( (c_vals[0], c_vals[1], c_vals[2]) )
 except KeyboardInterrupt:
-	pixels.fill((0, 0, 0))
+	#pixels.fill((0, 0, 0))
 	s.close()

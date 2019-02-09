@@ -1,20 +1,20 @@
 import flask
 from flask import Flask
 from flask import request
-import json
+#import json
 import subprocess as sp
 
 import board
-import neopixel
+#import neopixel
 
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
 app.config['ENV'] = 'development'
 
-pixels = neopixel.NeoPixel(board.D18, 30*2)
+#pixels = neopixel.NeoPixel(board.D18, 30*2)
 
-pixels.fill((0, 1, 0))
+#pixels.fill((0, 1, 0))
 #pixels[1] = (255, 0, 0)
 
 current = sp.Popen(['echo', ' '])
@@ -39,8 +39,7 @@ def off():
 def solid():
 	r = int(request.args.get("r"))
 	g = int(request.args.get("g"))
-	b = int(request.args.get("b"))
-
+	b = int(request.args.get("b")) 
 	start(['python3', 'solid.py', str(r), str(g), str(b)])
 	#global current
 	#sp.Popen.terminate(current)
@@ -62,6 +61,15 @@ def rainbow():
 
 	print("started rainbow")
 	return "started rainbow.", 200
+
+
+@app.route('/music')
+def rainbow():
+	start(['python3', 'music.py'])
+
+	print("started music")
+        return "started music.", 200
+
 
 @app.route('/fade')
 def fade():
@@ -85,4 +93,3 @@ def shutdown():
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')
-
