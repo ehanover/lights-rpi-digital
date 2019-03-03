@@ -20,7 +20,7 @@ pixel_pin = board.D12
 num_pixels = 60
 ORDER = neopixel.GRB
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, auto_write=False, pixel_order=ORDER)
-pixels_deque = deque([[0,0,0] for i in range(num_pixels)], maxlen=num_pixels) # pix is the deque that holds rgb values for each light. The oldest value gets bumped out every frame.
+pixels_deque = 
 
 import numpy as np
 #from Visualizer.MicrophoneRecorder import MicrophoneRecorder
@@ -84,45 +84,42 @@ r = MicrophoneRecorder(rate=8000, chunksize=512)
 #vals = [0,0,0]
 
 while True:
-    freqs = r.get_frames()
-    if len(freqs) > 0:
 
-        volumes = get_volumes(freqs)
-        vals = []
-        for i in range(len(volumes)):
-            a = (volumes[i]*SCALES[i]*GLOBAL_SCALE) + BIASES[i]
-            b = int( min(max(a,0), 255) )
-            vals.append(b)
-        #print(vals)
+        freqs = r.get_frames()
+        #freqs = [0,0,0]
+        if len(freqs) > 0:
+                volumes = get_volumes(freqs)
+                #vals_temp = [ (volumes[i]*SCALES[i]*GLOBAL_SCALE)+BIASES[i] for i in range(len(volumes)) ]
+                #vals = [ int( min(max(v, 0), 255) ) for v in vals_temp ]
 
-        if MODE == 0: # all of the lights are the same
-            pixels.fill(tuple(vals)) # assumes 3 sections
+                vals = []
+                for i in range(len(volumes)):
+                    a = (volumes[i]*SCALES[i]*GLOBAL_SCALE) + BIASES[i]
+                    b = int( min(max(a,0), 255) )
+                    vals.append(b)
 
-        elif MODE == 1: # lights divided into physical sections for frequency sections
-            for i in range(num_pixels):
-                val_index = int((i/num_pixels)*len(SECTIONS))  
-                val = vals[val_index]
 
-                color = (0, 0, 0)
-                if val_index == 0:
-                    color = (val, 0, 0)
-                elif val_index == 1:
-                    color = (0, val, 0)
-                elif val_index == 2:
-                    color = (0, 0, val)
+                #print(vals)
+                if mode == 0: # all of the lights are the same
+                    pixels.fill(tuple(vals)) # assumes 3 sections
+                elif mode == 1: # lights divided into physical sections for frequency sections
+                    for i in range(num_pixels):
+                        val_index = int((i/num_pixels)*len(SECTIONS))  
+                        val = vals[val_index]
 
-                pixels[i] = color
+                        color = (0, 0, 0)
+                        if val_index == 0:
+                            color = (val, 0, 0)
+                        elif val_index == 1:
+                            color = (0, val, 0)
+                        elif val_index == 2:
+                            color = (0, 0, val)
 
-        elif MODE == 2: # "bass history" mode
-            pixels_deque.append( [vals[0], 0, 0] )
-            for i in range(num_pixels):
-                pixels[i] = tuple(pixels_deque[i])
+                        pixels[i] = color
 
-        pixels.show()
+                elif mode == 2: # "bass history" mode
 
-    else: # no frames available
-        pass
-#       if MODE == 2:
-#            pixels_deque.append([0,0,0])
-            #pass
-#            time.sleep(0.01)
+                pixels.show()
+        #time.sleep(0.001)
+
+# r.close() might go here. MicrophoneRecorder calls close with atexit
