@@ -57,7 +57,7 @@ def gyro():
 
 @app.route('/rainbow')
 def rainbow():
-        start(['python3', 'rainbow.py'])
+        start(['python3', 'rainbow_fade.py'])
 
         print("started rainbow")
         return "started rainbow.", 200
@@ -70,13 +70,17 @@ def music():
         ss = []
         bs = []
         mode = int(request.args.get("mode"))
+        input_type = request.args.get("input") # could be usb, socket, maybe audiojack in the future?
 
         for i in range(3):
             ss.append(request.args.get("scales"+str(i)))
             bs.append(request.args.get("biases"+str(i)))
 
-        print("!!!bs: " + str(bs))
-        start(['python3', 'music.py', str(lower), str(upper)] + ss + bs + [str(mode)])
+        #print("!!!bs: " + str(bs))
+        if input_type == "usb":
+            start(['python3', 'music_usb.py', str(lower), str(upper)] + ss + bs + [str(mode)])
+        elif input_type == "socket":
+            start(['python3', 'music_socket.py', str(lower), str(upper)] + ss + bs + [str(mode)])
 
         print("started music")
         return "started music.", 200
