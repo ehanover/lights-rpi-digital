@@ -1,7 +1,11 @@
 {
+  "title":"LED strip connected to Raspberry Pi, controlled with Android phone app written with the Flutter framework",
   "date":"February 2019",
+  "dateint":1548979200,
   "languages": [
-    "Python", "HTML"
+    "Python", "Java", "Flutter"
   ],
-  "info":"raspberry lorem ipsum"
+  "hardware": [
+    "Raspberry Pi", "Neopixel LED strip"
+  ]
 }

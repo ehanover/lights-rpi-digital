@@ -33,7 +33,7 @@ def draw(d, fs):
 	#data = np.abs( np.fft.rfft(fs[-1]) )
 	#data = np.abs( np.fft.rfft(fs) )
 	#data = np.fft.rfft(fs)
-	data = np.array( [max(0, i*63) for i in np.fft.rfft(fs)] )
+	data = np.array( [max(0, i*128) for i in np.fft.rfft(fs)] )
 
 	avg = [0]*len(SECTIONS)
 

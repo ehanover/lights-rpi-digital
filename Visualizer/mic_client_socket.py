@@ -8,7 +8,7 @@ import array
 socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 socket.settimeout(.2)
 
-addr = ('0.0.0.0', 50000)
+addr = ('192.168.1.16', 50000)
 
 r = MicrophoneRecorder(rate=8000, chunksize=512)
 
@@ -27,7 +27,7 @@ while running:
 		#message = struct.pack('f'*len(frames), *frames)
 		#message = np.array(frames[-1]).tobytes()
 		#message = bytes( array.array('B', [min(abs(i), 255) for i in frames[-1]] ).tobytes() )
-		message = bytes( array.array('B', [int(abs(i)/63) for i in frames[-1]] ).tobytes() )
+		message = bytes( array.array('B', [int(abs(i)/128) for i in frames[-1]] ).tobytes() )
 		#a = [ int(abs(i)).to_bytes(8, byteorder='big' , signed=False) for i in frames[-1] ]
 		#message = bytes(a)
 		#message = bytes([min(abs(i/8), 254) for i in frames[-1]])
