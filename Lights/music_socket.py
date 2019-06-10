@@ -4,6 +4,7 @@ import neopixel
 import sys
 from collections import deque
 import socket
+import numpy as np
 
 pixel_pin = board.D12
 num_pixels = 60
@@ -11,9 +12,8 @@ ORDER = neopixel.GRB
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, auto_write=False, pixel_order=ORDER)
 pixels_deque = deque([[0,0,0] for i in range(num_pixels)], maxlen=num_pixels) # pix is the deque that holds rgb values for each light. The oldest value gets bumped out every frame.
 
-import numpy as np
 
-GLOBAL_SCALE = 0.05
+GLOBAL_SCALE = 0.009 #0.05
 FMAX = 2000 # max frequency at dlen=257
 DLEN = 257
 
