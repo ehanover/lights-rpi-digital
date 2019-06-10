@@ -10,12 +10,6 @@ DLEN = 257 # 257
 SKIP = 1
 W = WIDTH/(DLEN/SKIP)
 
-# SECTIONS = [
-#     [0, 200],
-#     [201, 700],
-#     [701, 1300],
-#     [1301, FMAX]
-# ]
 SECTIONS = [
 	[0, 150],
 	[151, 710],
@@ -58,9 +52,6 @@ def draw(d, fs):
 		pygame.draw.rect(d, (10,200,100), (i*sw, HEIGHT/2, sw-1, (-SECTION_WEIGHTS[i]*avg[i]/SECTION_SIZES[i])/40) )
 
 
-
-#r = MicrophoneRecorder(rate=8000, chunksize=512)
-
 pygame.init()
 display = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('visualizer')
@@ -76,17 +67,8 @@ while running:
 				running = False
 
 	data, addr = socket.recvfrom(1024)
-	#print("data received: ", data)
-	#print(type(data))
-	#print("len: " + str(len(data)))
-
 	fs = list(data)
-	#fs = [ i*1000 for i in list(data) ]
-	#fs = [int.from_bytes(d, byteorder='big', signed=False) for d in data]
-	#print(fs[0:10])
 
-	#if len(fs) > 0:
-		#print(fs)
 	draw(display, fs)
 
 	pygame.display.update()
