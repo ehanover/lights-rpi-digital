@@ -2,7 +2,7 @@
 
 This code is meant to be run on a Raspberry Pi connected to the lights. The Lights directory contains main.py which listens on port 5000 for different HTTP requests. I wrote an Android phone app using Flutter to provide a straightforward user interface to control the lights and interact with the Pi.
 
-<img src="Pictures/pic1.jpg" width="30%" title="Pi and wiring #1">    <img src="Pictures/pic2.jpg" width="30%" title="Pi and wiring #1">    <img src="Pictures/pic_wiring.png" width="30%" title="Wiring schematic">
+<img src="Pictures/pic1.jpg" width="30%" title="Pi and wiring #1">    <img src="Pictures/pic2.jpg" width="30%" title="Pi and wiring #2">    <img src="Pictures/pic_wiring.png" width="30%" title="Wiring schematic">
 
 #### HTTP endpoints:
 - ```/off```: turns off all lights but keeps the program running
